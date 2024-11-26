@@ -1,0 +1,455 @@
+I/FlutterWorkExecutor(13309): *** About to execute: notifications.votd -> notifications.votd
+I/FlutterWorkExecutor(13309): *** starting execution: notifications.votd -> notifications.votd
+I/FlutterWorkExecutor(13309): *** Completing with status (notifications.votd -> notifications.votd): SUCCESS
+I/FlutterWorker(13309): **** got result: Success {mOutputData=Data {}}
+D/FlutterWorkExecutor(13309): destroying engine
+I/FlutterWorkExecutor(13309): engine destroyed
+I/FlutterWorker(13309): Work finishing
+W/FlutterJNI(13309): Tried to send a platform message response, but FlutterJNI was detached from native C++. Could not send. Response ID: 30
+W/FlutterJNI(13309): Tried to send a platform message response, but FlutterJNI was detached from native C++. Could not send. Response ID: 29
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Platforms:
+Methods 	Android 	IOS 	Web
+querySongs 	✔️ 	✔️ 	✔️
+queryAlbums 	✔️ 	✔️ 	✔️
+queryArtists 	✔️ 	✔️ 	✔️
+queryPlaylists 	✔️ 	✔️ 	❌
+queryGenres 	✔️ 	✔️ 	✔️
+queryAudiosFrom 	✔️ 	✔️ 	✔️
+queryWithFilters 	✔️ 	✔️ 	✔️
+queryArtwork 	✔️ 	✔️ 	✔️
+createPlaylist 	✔️ 	✔️ 	❌
+removePlaylist 	✔️ 	❌ 	❌
+addToPlaylist 	✔️ 	✔️ 	❌
+removeFromPlaylist 	✔️ 	❌ 	❌
+renamePlaylist 	✔️ 	❌ 	❌
+moveItemTo 	✔️ 	❌ 	❌
+checkAndRequest 	✔️ 	✔️ 	❌
+permissionsRequest 	✔️ 	✔️ 	❌
+permissionsStatus 	✔️ 	✔️ 	❌
+queryDeviceInfo 	✔️ 	✔️ 	✔️
+scanMedia 	✔️ 	❌ 	❌
+
+✔️ -> Supported
+❌ -> Not Supported
+
+
+To use this plugin add the following code to your AndroidManifest.xml
+
+<manifest>
+  
+  <!-- Android 12 or below  -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+  <!-- Android 13 or greater  -->
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+
+</manifest>
+
+IOS:
+
+To use this plugin add the following code to your Info.plist
+
+<dict>
+
+	<key>NSAppleMusicUsageDescription</key>
+	<string>$(PROJECT_NAME) requires access to media library</string>
+
+</dict>
+
+Some Features:
+
+    Optional and Built-in storage READ and WRITE permission request
+    Get all audios/songs.
+    Get all albums and album-specific audios.
+    Get all artists and artist-specific audios.
+    Get all playlists and playlists-specific audios.
+    Get all genres and genres-specific audios.
+    Get all query methods with specific keys [Search].
+    Create/Delete/Rename playlists.
+    Add/Remove/Move specific audios to playlists.
+    Specific sort types for all query methods.
+
+Overview:
+
+All types of methods on this plugin:
+Artwork Widget
+
+  Widget someOtherName() async {
+    return QueryArtworkWidget(
+      id: <audioId>,
+      type: ArtworkType.AUDIO,
+    );
+  }
+
+See more: QueryArtworkWidget
+Examples:
+OnAudioQuery
+
+final OnAudioQuery _audioQuery = OnAudioQuery();
+
+Query methods:
+
+    queryAudios();
+    queryAlbums();
+    queryArtists();
+    queryPlaylists();
+    queryGenres().
+
+  someName() async {
+    // Query Audios
+    List<AudioModel> audios = await _audioQuery.queryAudios();
+
+    // Query Albums
+    List<AlbumModel> albums = await _audioQuery.queryAlbums();
+  }
+
+scanMedia
+
+You'll use this method when updating a media from storage. This method will update the media 'state' and Android MediaStore will be able to know this 'state'.
+
+  someName() async {
+    OnAudioQuery _audioQuery = OnAudioQuery();
+    File file = File('path');
+    try {
+      if (file.existsSync()) {
+        file.deleteSync();
+        _audioQuery.scanMedia(file.path); // Scan the media 'path'
+      }
+    } catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+queryArtwork
+
+  someName() async {
+    // DEFAULT: ArtworkFormat.JPEG, 200 and false
+    Uint8List something = await _audioQuery.queryArtwork(
+        <audioId>,
+        ArtworkType.AUDIO,
+        ...,
+      );
+  }
+
+Or you can use a basic and custom Widget. See example QueryArtworkWidget
+Gif Examples:
+			
+			
+Songs 	Albums 	Playlists 	Artists
+LICENSE:
+
+    LICENSE
+
+        Back to top
+
+142
+likes
+140
+pub points
+96%
+popularity
+Publisher
+
+verified publisher iconlucasjosino.com
+Metadata
+
+Flutter Plugin used to query audios/songs infos [title, artist, album, etc..] from device storage.
+
+Repository (GitHub)
+View/report issues
+Topics
+
+#audio #song #audioquery #on-audio-query #storage #mediastore #mpmediaquery
+Documentation
+
+API reference
+License
+
+Icon for licenses.BSD-3-Clause (LICENSE)
+Dependencies
+
+flutter, on_audio_query_android, on_audio_query_ios, on_audio_query_platform_interface, on_audio_query_web
+More
+
+Packages that depend on on_audio_query
+Dart languagePolicyTermsAPI TermsSecurityPrivacyHelpRSS iconbug report icon
+
+
+
+
+
+
+
+
+YoutubeAPI yt = YoutubeAPI(api_key, maxResults: 6, type: "video");
+yt.search("video you want to search for") //search video
+yt.getTrends(regionCode:"Your country's apha2 region code" ) //get trending videos
+yt.nextPage() //get the results of next page
+yt.previousPage() //get the results of previous page
+yt.video(["videoId1","videoId2"]) //get the video data based on list given in parameter
+yt.channel(["channelid1","channelid2"]) //get channel data based on list provided 
+const String YT_API_KEY = "AIzaSyD9pDeSbJyjo5BaKQsp314uw-ZTjZvSez8";
+
+
+[
+  {
+    "kind": "video",
+    "id": "9vzd289Eedk",
+    "channelTitle": "Java",
+    "title": "WEBINAR - Programmatic Trading in Indian Markets using Python with Kite Connect API",
+    "description": "For traders today, Python is the most preferred programming language for trading, as it provides great flexibility in terms of building and executing strategies.",
+    "publishedAt": "2016-10-18T14:41:14.000Z",
+    "channelId": "UC8kXgHG13XdgsigIPRmrIyA",
+    "thumbnails": {
+      "default": {
+        "url": "https://i.ytimg.com/vi/9vzd289Eedk/default.jpg",
+        "width": 120,
+        "height": 90
+      },
+      "medium": {
+        "url": "https://i.ytimg.com/vi/9vzd289Eedk/mqdefault.jpg",
+        "width": 320,
+        "height": 180
+      },
+      "high": {
+        "url": "https://i.ytimg.com/vi/9vzd289Eedk/hqdefault.jpg",
+        "width": 480,
+        "height": 360
+      }
+    },
+    "channelurl": "https://www.youtube.com/channel/UC8kXgHG13XdgsigIPRmrIyA",
+    "url": "https://www.youtube.com/watch?v=9vzd289Eedk"
+  },
+  {
+    "kind": "video"
+    // Data for your next result in a similar way
+  },
+  {
+    // Data for your next result in a similar way
+    "url": "https://www.youtube.com/watch?v=9vzd289Eedk"
+  }
+]
+
+
+
+
+
+import 'dart:ui';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:youtube_api/youtube_api.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  static String api_key = "AIzaSyAaATaZ1TE5aeCFY4SWx6p70KWWQVL5K1M";
+  List<YT_API> results = [];
+  YoutubeAPI yt = YoutubeAPI(api_key, maxResults: 6, type: "video");
+  bool isLoaded = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    callApi();
+  }
+
+  callApi() async {
+    try {
+      results = await yt.search("HD Music");
+      
+      print(results);
+      setState(() {
+        isLoaded = true;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.light,
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            "Youtube API",
+            style: TextStyle(color: Colors.black, fontFamily: "Poppins"),
+          ),
+          centerTitle: true,
+          leading: Icon(
+            FeatherIcons.youtube,
+            color: Colors.red,
+            size: 28,
+          ),
+        ),
+        body: isLoaded
+            ? ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () async {
+                      String url = results[index].url;
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    child: (Container(
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.only(top: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          index == 0
+                              ? Container(
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "TOP TRENDING",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: "Poppins"),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Icon(
+                                        Icons.whatshot,
+                                        color: Colors.red,
+                                        size: 18,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              : Container(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(28),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(0, 10),
+                                        blurRadius: 40,
+                                        color: index == 0
+                                            ? Colors.red[50]
+                                            : Color.fromRGBO(0, 0, 0, 0.09))
+                                  ]),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(28),
+                                        topRight: Radius.circular(28)),
+                                    child: Image.network(
+                                      results[index].thumbnail['medium']["url"],
+                                      width: MediaQuery.of(context).size.width,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            results[index].channelTitle,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: "Poppins"),
+                                          ),
+                                        ),
+                                        index == 0
+                                            ? Icon(
+                                                Icons.favorite,
+                                                color: Colors.red,
+                                              )
+                                            : Icon(
+                                                Icons.favorite_border,
+                                                color: Colors.grey,
+                                              )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15,
+                                        right: 15,
+                                        bottom: 15,
+                                        top: 10),
+                                    child: Text(
+                                      results[index].duration,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "Poppins"),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ],
+                              ))
+                        ],
+                      ),
+                    )),
+                  );
+                },
+                itemCount: results.length,
+              )
+            : Center(
+                child: SleekCircularSlider(
+                  appearance: CircularSliderAppearance(
+                    spinnerMode: true,
+                    size: 40,
+                  ),
+                ),
+              ),
+      ),
+    );
+  }
+}
